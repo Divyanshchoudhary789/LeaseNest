@@ -20,7 +20,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-
+const port = process.env.PORT;
 const dbUrl = process.env.ATLASDB_URL;
 
 
@@ -136,3 +136,7 @@ app.use((req, res) => {
     res.status(404).send("Page Not Found");
 });
 
+
+app.listen(port, () => {
+    console.log(`server is listening on port: ${port}`);
+});
