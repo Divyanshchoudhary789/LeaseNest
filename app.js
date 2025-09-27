@@ -136,7 +136,3 @@ app.use((req, res) => {
     res.status(404).send("Page Not Found");
 });
 
-
-app.listen(8080, () => {
-    console.log("server is listening on port: 8080");
-});
