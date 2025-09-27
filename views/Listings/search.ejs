@@ -1,0 +1,154 @@
+<% layout("/layouts/boilerplate") %>
+
+    <script>
+        /* let mapKey = "<%= process.env.MAP_KEY %>"; */
+        let allListings = <%- JSON.stringify(allListings)%>;
+    </script>
+
+    <style>
+        #main {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .listings {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            margin-right: 25px;
+
+        }
+
+        .listings::-webkit-scrollbar {
+            display: none;
+        }
+
+        .listing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .map-div {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #search-map {
+            position: sticky;
+            top: 0px;
+            height: 90%;
+            width: 100%;
+            border-radius: 25px;
+        }
+
+        .message {
+            position: absolute;
+            top: 200px;
+        }
+
+        @media (max-width:991px) {
+            #main {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .listings,
+            .map-div {
+                flex: none;
+                width: 100%;
+                margin: 0;
+                padding: 0 5vw;
+            }
+
+            .listings {
+                padding-top: 10px;
+            }
+
+            .map-div {
+                margin-top: 30px;
+            }
+
+            #search-map {
+                height: 300px;
+                border-radius: 15px;
+            }
+
+            .listing-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media(max-width:575px) {
+            #search-map {
+                height: 200px;
+                border-radius: 10px;
+            }
+
+            .listings {
+                padding: 4vw 2vw 0 2vw;
+            }
+        }
+    </style>
+
+
+
+    <div id="main">
+
+        <div class="listings">
+            <div class="listing-grid">
+                <% for(let listing of allListings){ %>
+                    <a href="/listings/<%= listing._id %>" class="listing-link">
+                        <div class="card listing-card">
+                            <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image"
+                                style="height:20rem;">
+                            <div class="card-img-overlay"></div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <b>
+                                        <%= listing.title %>
+                                    </b><br />
+                                    &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="tax-info">+18% GST</i>
+
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                    <% } %>
+            </div>
+        </div>
+
+
+        <div class="map-div mt-3 mb-5 ">
+            <div id="search-map"></div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <% if(allListings.length==0){ %>
+        <div class="message">
+            <h3> There's no any listings at this Location.</h3>
+            <h2> Coming Soon! </h2>
+        </div>
+        <div class="map-div mt-3 mb-5 ">
+            <div id="search-map"></div>
+        </div>
+        <% } %>
+
+
+
+
+
+
+
+            <script src="/js/search_map.js"></script>
