@@ -1,8 +1,8 @@
 <%- layout("/layouts/boilerplate") %>
     <script>
         let mapKey = "<%= process.env.MAP_KEY %>";
-        let coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
-        let listing = <%- JSON.stringify(listing) %>;
+        let coordinates = <% - JSON.stringify(listing.geometry.coordinates) %>;
+        let listing = <% - JSON.stringify(listing) %>;
     </script>
 
     <div class="row mt-3">
@@ -87,7 +87,7 @@
                         <div class="row">
                             <h4>All Reviews:</h4>
                             <% for(review of listing.reviews){ %>
-                                <div class="card col-5 ms-5 mb-3 mt-4 review-card" >
+                                <div class="card col-5 ms-5 mb-3 mt-4 review-card">
                                     <div class="card-body">
                                         <h5 class="card-title">@<%= review.author.username %>
                                         </h5>
@@ -97,10 +97,12 @@
                                             <%= review.comment %>
                                         </p>
                                     </div>
-                                    <form method="post"
-                                        action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                        <button class="btn btn-sm btn-dark mb-2 ms-2 mt-3">Delete</button>
-                                    </form>
+                                    <% if (currUser && currUser._id.equals(review.author._id)){ %>
+                                        <form method="post"
+                                            action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                            <button class="btn btn-sm btn-dark mb-2 ms-2 mt-3">Delete</button>
+                                        </form>
+                                    <% } %>
                                 </div>
                                 <% } %>
                         </div>
