@@ -1,8 +1,8 @@
 <%- layout("/layouts/boilerplate") %>
     <script>
         let mapKey = "<%= process.env.MAP_KEY %>";
-        let coordinates = <% - JSON.stringify(listing.geometry.coordinates) %>;
-        let listing = <% - JSON.stringify(listing) %>;
+        let coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+        let listing = <%- JSON.stringify(listing) %>;
     </script>
 
     <div class="row mt-3">
