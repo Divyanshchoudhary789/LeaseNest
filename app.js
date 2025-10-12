@@ -129,7 +129,7 @@ app.use("/", userRouter);
 // Error Handling Middleware
 app.use((err, req, res, next) => {
     const { status = 500, message = "Something Went Wrong!" } = err;
-    res.status(status).render("listings/error", { message });
+    res.status(status).render("listings/error.ejs", { message });
 });
 
 app.use((req, res) => {
