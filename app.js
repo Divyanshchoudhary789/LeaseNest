@@ -55,7 +55,7 @@ const store = MongoStore.create({
 });
 
 
-store.on("error",(err)=>{
+store.on("error", (err) => {
     console.log("Error in MONGO Session Store", err);
 });
 
@@ -76,7 +76,7 @@ const sessionOptions = {
 // Root Route
 
 app.get("/", (req, res) => {
-    res.send("Root is Working Properly");
+    res.redirect("/listings");
 });
 
 
