@@ -4,7 +4,7 @@ mapKey = process.env.MAP_KEY;
 
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
-    res.render("Listings/index.ejs", { allListings });
+    res.render("listings/index.ejs", { allListings });
 }
 
 
