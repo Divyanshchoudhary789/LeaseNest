@@ -74,11 +74,11 @@ const sessionOptions = {
 
 
 // Root Route
-/* 
+
 app.get("/", (req, res) => {
     res.send("Root is Working Properly");
 });
- */
+
 
 
 
