@@ -9,7 +9,7 @@
 
         .body-div {
             width: 100%;
-            max-height: 900px;
+            max-height: 1200px;
         }
 
         .lower-dark-div {
@@ -107,7 +107,7 @@
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            margin-top: 200px;
+            margin-top: 120px;
         }
 
         .faq-list {
@@ -169,17 +169,17 @@
 
     <div class="central-div">
         <% if(!currUser){ %>
-            <h1 style="margin-bottom: 50px;">Help Centre-</h1>
+            <h1 style="margin-bottom: 40px;">Help Centre-</h1>
             <h1><b>Hi, how can we help?</b></h1>
             <% } %>
 
                 <% if(currUser){ let username=currUser.username.split(/[_ ]/)[0]; %>
-                    <h1 style="margin-bottom: 50px;">Help Centre-</h1>
+                    <h1 style="margin-bottom: 40px;">Help Centre-</h1>
                     <h1><b>Hi <%=username %>, how can we help?</b></h1>
                     <% } %>
     </div>
 
-    <div class="body-div">
+    <div class="body-div mb-5">
         <div>
             <h2>Your questions, answered</h2>
         </div>
