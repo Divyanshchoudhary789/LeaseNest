@@ -1,4 +1,5 @@
-Rental Listings and Management-based Web Application Platform.                       Url --> "leasenest.onrender.com"
+Rental Listings and Management-based Web Application Platform.                       
+Url --> "leasenest.onrender.com"
 
 LeaseNest is a simple, user-friendly web app for discovering and booking rental properties.
 It lets users browse listings, sign up/login, make and manage bookings, leave and view reviews, and access help/FAQ — all via a responsive, server-rendered interface.
