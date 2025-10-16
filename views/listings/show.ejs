@@ -3,6 +3,7 @@
         let mapKey = "<%= process.env.MAP_KEY %>";
         let coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
         let listing = <%- JSON.stringify(listing) %>;
+        let bookedDates = <%- JSON.stringify(bookedDates) %>;
     </script>
 
     <div class="row mt-3">
@@ -38,9 +39,23 @@
         </div>
         <% } %>
 
-            <div class="col-8 offset-2 mb-5 mt-5">
+
+
+        <div class="booking-ui col-3 offset-7">
+            <h5 class="mb-4">Book Your New Nest</h5>
+            <form method="get" action="/listings/<%= listing._id %>/booking">
+                <label for="dates" class="form-label">Select Check-In and Check-Out Date: </label>
+                <input id="dates" class="form-control " type="text" name="daterange"/>
+                <button class="btn btn-dark reserve-btn mt-3 offset-4">Reserve</button>
+            </form>
+            <h6 class="mt-3">You won't be charged yet</h6>
+        </div>
+
+
+
+            <div class="col-8 offset-2 mb-5 ">
                 <% if(currUser) { %>
-                    <hr>
+                    <hr id="line" />
                     <h4>Leave a Review:</h4>
                     <br>
                     <form method="post" action="/listings/<%= listing._id %>/reviews" novalidate
@@ -80,7 +95,7 @@
                         <button class="btn btn-outline-dark">Submit</button>
                         <% } %>
                     </form>
-                    <hr>
+                    <hr id="line">
 
 
                     <% if(listing.reviews.length> 0) { %>
@@ -116,6 +131,11 @@
 
 
             <style>
+
+                #line{
+                    max-width: 700px;
+                }
+
                 @media (max-width:768px) {
                     .review-card {
                         width: 100%;
@@ -133,7 +153,214 @@
                         width: 180%;
                     }
                 }
+
+                @media (min-width:1120px) {
+                    .booking-ui{
+                    border:1px solid rgba(128, 128, 128,0.2);
+                    border-radius: 15px;
+                    position: absolute;
+                    top:350px;
+                    width: 300px;
+                    padding: 20px;
+                    box-shadow: 0 4px 15px 3px rgba(0,0,0,0.1);
+                    
+                }
+                .booking-ui > h5,h6 {
+                    text-align: center;
+                }
+
+                }
+
+                @media (max-width:1119px) {
+                    .booking-ui{
+                        border: 1px solid rgba(128, 128, 128, 0.171);
+                        margin-left: 20%;
+                        margin-top: 20px;
+                        width:300px;
+                        padding: 20px;
+                        border-radius: 15px;
+                    }
+                }
+
+                 @media (min-width:1200px) and (max-width:1280px) {
+                    .booking-ui{
+                        border: 1px solid rgba(128, 128, 128, 0.171);
+                        margin-left: 65%;
+                        margin-top: 20px;
+                        width:300px;
+                        padding: 20px;
+                        border-radius: 15px;
+                    }
+
+                    #line{
+                        max-width: 500px;
+                    }
+                }
+                
+                @media (max-width:425px) {
+                    .booking-ui{
+                        border: 1px solid rgba(128, 128, 128, 0.171);
+                        margin-left: 10%;
+                        margin-top: 20px;
+                        width:300px;
+                        padding: 20px;
+                        border-radius: 15px;
+                    }
+                }
+                
+                .reserve-btn{
+                    background-color: #fe424d !important;
+                    border: none !important;
+                }
+
+                /* Calendar popup floating above input */
+                .daterangepicker.dropdown-menu {
+                top: auto !important;
+                bottom: 100% !important;
+                margin-bottom: 10px;
+                animation: fadeInUp 0.3s ease forwards;
+                transform-origin: bottom center;
+                }
+
+                /* Fade in up animation */
+                @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                }
+
+                /* Light translucent Airbnb red background for selected range */
+                .daterangepicker td.active,
+                .daterangepicker td.active:hover,
+                .daterangepicker td.in-range,
+                .daterangepicker td.in-range:hover {
+                background-color: rgba(255, 90, 95, 0.3) !important;
+                color: #ff5a5f !important;
+                border-radius: 0 !important;
+                }
+
+                /* Solid Airbnb red with white text for start and end dates */
+                .daterangepicker td.active.start-date,
+                .daterangepicker td.active.end-date {
+                background-color: #ff5a5f !important;
+                color: white !important;
+                border-radius: 50% !important;
+                }
+
+                /* Hover effect on available dates */
+                .daterangepicker td.available:hover {
+                background-color: rgba(255, 90, 95, 0.15) !important;
+                color: #ff5a5f !important;
+                border-radius: 50% !important;
+                }
+
+                /* Buttons styled with Airbnb red */
+                .daterangepicker .drp-buttons .btn {
+                background-color: #ff5a5f;
+                border: none;
+                color: white;
+                border-radius: 6px;
+                padding: 8px 20px;
+                font-weight: 600;
+                transition: background-color 0.3s;
+                }
+
+                .daterangepicker .drp-buttons .btn:hover {
+                background-color: #e0484d;
+                }
+
+                /* Calendar header style */
+                .daterangepicker .calendar-table th {
+                font-weight: 700;
+                color: #484848;
+                font-size: 14px;
+                }
+
+                /* Calendar container border radius and subtle shadow */
+                .daterangepicker {
+                border-radius: 12px;
+                border: 1px solid rgba(128, 128, 128, 0.15);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                }
+
+                /* Highlight today with red border circle */
+                .daterangepicker td.today {
+                border: 2px solid #ff5a5f;
+                border-radius: 50%;
+                color: #ff5a5f;
+                }
+
+                .daterangepicker td.disabled, 
+                .daterangepicker td.off, 
+                .daterangepicker td.invalid {
+                    background: #eee !important;
+                    color: #bbb !important;
+                    cursor: not-allowed !important;
+                    text-decoration: line-through;
+                }
+
             </style>
+            
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <script>
+            $(function() {
+                let formattedBooked = bookedDates.map(d => moment(d, 'YYYY-MM-DD').format('YYYY-MM-DD'));
+
+                $('input[name="daterange"]').daterangepicker({
+                opens: 'left',
+                minDate: moment().startOf('day'),
+                autoApply: false,
+                showDropdowns: true,
+                locale: {
+                    format: 'DD MMM YYYY',
+                    separator: ' to ',
+                    applyLabel: "Apply",
+                    cancelLabel: "Cancel",
+                    fromLabel: "From",
+                    toLabel: "To",
+                    daysOfWeek: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+                    monthNames: [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                    ],
+                    firstDay: 1
+                },
+                isInvalidDate: function(date) {
+                    return formattedBooked.includes(date.format('YYYY-MM-DD'));
+                }
+                }, function(start, end) {
+                console.log("Selected Check-in: " + start.format('YYYY-MM-DD'));
+                console.log("Selected Check-out: " + end.format('YYYY-MM-DD'));
+                });
+
+                $('form[action$="/booking"]').on('submit', function(e) {
+                    let val = $('input[name="daterange"]').val();
+                    if (!val) {
+                        e.preventDefault();
+                        return;
+                    }
+                    let [start, end] = val.split(' to ').map(s => moment(s, 'DD MMM YYYY'));
+                    let range = [];
+                    for(let d = moment(start); d.isSameOrBefore(end); d.add(1, 'days')) {
+                        range.push(d.format('YYYY-MM-DD'));
+                    }
+                    let overlap = range.some(d => formattedBooked.includes(d));
+                    if (overlap) {
+                        e.preventDefault();
+                        return;
+                    }
+                });
+            });
+        </script>
 
 
             <script src="/js/map.js"></script>
+            

@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const Booking = require("../models/booking");
 const axios = require("axios");
 mapKey = process.env.MAP_KEY;
 
@@ -49,12 +50,31 @@ module.exports.showListing = async (req, res) => {
     //console.log(id);
     const listing = await Listing.findById(id).populate({ path: "reviews", populate: { path: "author", }, }).populate("owner");
     //console.log(listing);
+
+    const bookings = await Booking.find({ listing: listing._id });
+    //console.log(bookings);
+
+    let bookedDates = [];
+
+    bookings.forEach((booking) => {
+        let current = new Date(booking.checkIn);
+        let end = new Date(booking.checkOut);
+        while (current <= end) {
+            bookedDates.push(current.toISOString().split("T")[0]);
+            current.setDate(current.getDate() + 1);
+        }
+    });
+
+    //console.log(bookedDates);
+
     if (!listing) {
         req.flash("error", "Listing you requested for does not exist!");
         res.redirect("/listings");
     } else {
-        res.render("listings/show.ejs", { listing });
+        res.render("listings/show.ejs", { listing, bookedDates });
     }
+
+
 }
 
 

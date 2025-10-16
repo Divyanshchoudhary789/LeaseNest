@@ -1,0 +1,355 @@
+<% layout("/layouts/boilerplateFooterPages") %>
+
+
+    <style>
+        .central-div {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .body-div {
+            width: 100%;
+            max-height: 900px;
+        }
+
+        .lower-dark-div {
+            max-width: 100%;
+            min-height: 470px;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .heading-div {
+            color: white;
+            height: 50px;
+            max-width: 1064px;
+            padding: 10px;
+            font-size: 32px;
+            font-weight: 500;
+            margin-top: 40px;
+            margin-left: -70px;
+        }
+
+        @media (max-width:1224px) {
+            .heading-div {
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width:996px) {
+            .card {
+                margin-bottom: 20px;
+                width: 320px;
+            }
+
+            .card-img {
+                width: 320px
+            }
+
+            .card-div {
+                padding: 15px;
+            }
+        }
+
+        .card-div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .card {
+            max-width: 359px;
+            border-radius: 15px;
+            background-color: #222222 !important;
+            margin-right: 10px;
+        }
+
+        .text-div {
+            max-width: 359px;
+            background-color: black;
+            padding: 10px;
+            margin-left: 15px;
+        }
+
+        .text-div h4,
+        p {
+            color: white;
+        }
+
+        .card img {
+            max-width: 358px !important;
+            max-height: 220px !important;
+        }
+
+        .card-body {
+            height: 78px !important;
+            width: 358px !important;
+            padding: 16px 0 24px 0;
+        }
+
+        .card-body p {
+            padding: 0px 16px;
+            color: white;
+        }
+
+        .card-text {
+            margin-top: 12px;
+            margin-bottom: -2px;
+        }
+
+        .body-div {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 200px;
+        }
+
+        .faq-list {
+            max-width: 800px;
+        }
+
+        .list-head {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 15px;
+            padding: 5px;
+        }
+
+
+        .faq-list ul {
+            list-style-type: none;
+        }
+
+        .list-head .arrow {
+            transform: rotate(90deg);
+            font-size: 15px;
+            margin-bottom: 5px;
+            transition: transform .18s ease;
+            display: inline-block;
+        }
+
+        .faq-list ul {
+            list-style-type: none;
+        }
+
+        .detail{
+            display: none;
+            margin-top: 8px;
+            color:#444;
+        }
+
+        .list.open .detail{
+            display: block;
+        }
+
+        .list.open .arrow{
+            transform: rotate(-90deg);
+        }
+
+        @media (max-width:600px) {
+            .list-head h5{
+                font-size: 16px;
+            }
+            .detail{
+                font-size: 14px;
+                color:#666
+            }
+        }
+    </style>
+
+
+
+
+
+    <div class="central-div">
+        <% if(!currUser){ %>
+            <h1 style="margin-bottom: 50px;">Help Centre-</h1>
+            <h1><b>Hi, how can we help?</b></h1>
+            <% } %>
+
+                <% if(currUser){ let username=currUser.username.split(/[_ ]/)[0]; %>
+                    <h1 style="margin-bottom: 50px;">Help Centre-</h1>
+                    <h1><b>Hi <%=username %>, how can we help?</b></h1>
+                    <% } %>
+    </div>
+
+    <div class="body-div">
+        <div>
+            <h2>Your questions, answered</h2>
+        </div>
+        <div class="faq-list">
+            <ul>
+                <li>
+                    <div class="list">
+                        <div class="list-head">
+                            <h5>What is LeaseNest and how does it works?</h5>
+                            <i class="fa-solid fa-less-than arrow"></i>
+                        </div>
+                        <h6 class="detail">We verify personal profiles and listings to make sharing easy, enjoyable
+                            and safe for millions of Hosts and travellers worldwide.</h6>
+                        <hr>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="list">
+                        <div class="list-head">
+                            <h5>How do i become a LeaseNest host?</h5>
+                            <i class="fa-solid fa-less-than arrow"></i>
+                        </div>
+                        <h6 class="detail">To become an LeaseNest host, simply sign up on the website and follow the
+                            steps to create your listing. You will need to provide information about your space,
+                            amenities, pricing, and availability. Once your listing is live, you can start receiving
+                            bookings from guests.</h6>
+                        <hr>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="list">
+                        <div class="list-head">
+                            <h5>How much does it cost to list on LeaseNest?</h5>
+                            <i class="fa-solid fa-less-than arrow"></i>
+                        </div>
+                        <h6 class="detail">It’s free to create a listing, but LeaseNest charges hosts a service fee,
+                            typically between 3 and 15% per booking, which gets deducted from your earnings.</h6>
+                        <hr>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="list">
+                        <div class="list-head">
+                            <h5>What can I do to improve my listing’s visibility?</h5>
+                            <i class="fa-solid fa-less-than arrow"></i>
+                        </div>
+                        <h6 class="detail">Optimizing your photos, writing a compelling description, updating your
+                            calendar regularly, and earning positive reviews can boost your listing’s visibility and
+                            ranking.</h6>
+                        <hr>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="list">
+                        <div class="list-head">
+                            <h5>What are LeaseNest's requirements for being a host?</h5>
+                            <i class="fa-solid fa-less-than arrow"></i>
+                        </div>
+                        <h6 class="detail">LeaseNest expects hosts to provide accurate listings, comply with local laws,
+                            ensure the safety of accommodations, and communicate promptly with guests. Hosts must also
+                            be at least 18 years of age.</h6>
+                        <hr>
+                    </div>
+                </li>
+
+
+                <li>
+                    <div class="list">
+                        <div class="list-head">
+                            <h5>How does the payment process work on LeaseNest?</h5>
+                            <i class="fa-solid fa-less-than arrow"></i>
+                        </div>
+                        <h6 class="detail">LeaseNest securely handles payments. Guests pay through the platform, and
+                            hosts receive payouts 24 hours after check-in, minus service fees.</h6>
+                        <hr>
+                    </div>
+                </li>
+
+
+                <li>
+                    <div class="list">
+                        <div class="list-head">
+                            <h5>How do I handle guest communication?</h5>
+                            <i class="fa-solid fa-less-than arrow"></i>
+                        </div>
+                        <h6 class="detail">Timely communication is key. Utilize LeaseNest's messaging tools to ensure
+                            clear and professional communication with guests before, during, and after their stay.</h6>
+                        <hr>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="lower-dark-div">
+        <div class="heading-div">Explore more</div>
+        <div class="card-div">
+            <div class="card">
+                <img src="/assets/policy-image.png" class="card-img-top">
+                <div class="card-body">
+                    <p class="card-text">Our community policies</p>
+                    <p>How we built a foundation of trust.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="/assets/safety-image.png" class="card-img-top">
+                <div class="card-body">
+                    <p class="card-text">Safety tips and guidelines</p>
+                    <p>Resources to help travellers stay safe.</p>
+                </div>
+            </div>
+
+            <div class="text-div">
+                <div style="width:300px; height: 30px; margin-bottom: 5px;">
+                    <h4>Need to get in touch?</h4>
+                </div>
+                <div style="width: 300px; height: 18px; font: 18px; margin-bottom: 50px;">
+                    <p>We'll start with some questions and get you to the right place.</p>
+                </div>
+                <a href="/help" style="text-decoration: none; border: none; outline: none;"><button
+                        style="width:300px; height: 47px; font:16px; margin-bottom: 20px; border-radius: 10px;">Contact
+                        Us</button></a>
+                <div>
+                    <p>You can also <span style="text-decoration: underline;"> give us feedback </span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+    const lists = document.querySelectorAll('.list');
+
+    lists.forEach(list => {
+        const head = list.querySelector('.list-head');
+        const detail = list.querySelector('.detail');
+        const arrow = list.querySelector('.arrow');
+
+        if (!head || !detail) return;
+
+        // initial state
+        detail.style.display = 'none';
+        head.style.cursor = 'pointer';
+        head.setAttribute('tabindex', '0');
+        head.setAttribute('role', 'button');
+
+        function toggle() {
+            const opened = list.classList.toggle('open');
+            detail.style.display = opened ? 'block' : 'none';
+            // arrow rotation handled by CSS via .open class
+        }
+
+        head.addEventListener('click', toggle);
+
+        head.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggle();
+            }
+        });
+    });
+});
+
+    </script>

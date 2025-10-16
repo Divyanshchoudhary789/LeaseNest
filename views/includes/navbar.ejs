@@ -30,6 +30,27 @@
     .navbar-collapse{
         background-color: white !important;
     }
+
+    .profile{
+        width:40px;
+        height:40px;
+        border-radius: 50%;
+        background-color: black;
+        border: 2px solid black;
+        margin-right: 10px;
+        text-align: center;
+        padding: 5px;
+    }
+    .profile-icon {
+        color:white;
+    }
+
+    @media (min-width:765px) and (max-width:796px) {
+        .profile{
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+    }
 </style>
 
 
@@ -60,9 +81,14 @@
                     <a class="nav-link" href="/login"><b>Login</b></a>
                     <% } %>
 
-                        <% if(currUser) { %>
-                            <a class="nav-link" href="/logout"><b>Log out</b></a>
-                            <% } %>
+
+                <% if(currUser) { let user = ((currUser.username[0]).toUpperCase()) %>
+                    <a href="/profile" style="text-decoration: none;"><div class="profile">
+                            <p class="profile-icon"><%=user%></p>
+                        </div>
+                    </a>
+                    <a class="nav-link" style="margin-left: 10px;" href="/logout"><b>Log out</b></a>
+                    <% } %>
             </div>
         </div>
     </div>

@@ -1,0 +1,88 @@
+<style>
+    .logo-div {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-image {
+        margin-right: 15px;
+    }
+
+    .user-icon-div {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        max-width: 180px;
+
+    }
+
+    .profile {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: black;
+        border: 2px solid black;
+        margin-right: 10px;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .profile-icon {
+        color: white;
+    }
+
+    @media (min-width:765px) and (max-width:796px) {
+        .profile {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+    }
+
+     @media (max-width:430px) {
+        .right-nav-div{
+            width: 120px;
+        }
+        .logo-div{
+            padding: 10px;
+        }
+    }
+
+    
+</style>
+
+
+<nav class="navbar bg-body-tertiary" style="background: transparent !important;">
+    <div class="container-fluid">
+        <a class="navbar-brand logo-div" href="/listings">
+            <img src="/assets/icon.png" width="45" height="45" class="d-inline-block align-text-top logo-image">
+            <h5>LeaseNest </h5>
+        </a>
+
+        <div class="navbar-nav ms-auto user-icon-div">
+            <div style="display: flex;">
+                <% if(!currUser) { %>
+                    <a class="nav-link" href="/signup" style="margin-right: 20px;"><b>Sign up</b></a>
+                    <a class="nav-link" href="/login"><b>Login</b></a>
+                    <% } %>
+            </div>
+
+
+            <% if(currUser) { let user=((currUser.username[0]).toUpperCase()) %>
+                <div style="display: flex; flex-wrap: wrap;" class="right-nav-div">
+                    <a href="/profile" style="text-decoration: none;">
+                        <div class="profile">
+                            <p class="profile-icon">
+                                <%=user%>
+                            </p>
+                        </div>
+                    </a>
+                    <a class="nav-link" style="margin-left: 10px;" class="logout-icon" href="/logout"><b>Log out</b></a>
+                </div>
+                <% } %>
+        </div>
+    </div>
+
+</nav>
+
+

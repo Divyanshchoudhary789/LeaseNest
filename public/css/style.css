@@ -6,6 +6,7 @@ body {
 }
 
 
+
 .container {
     flex: 1;
 }
@@ -37,13 +38,20 @@ body {
     text-decoration: underline;
 }
 
-.f-info-links,
-.f-info-socials,
-.f-info-brand {
+.f-info-links {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    flex-wrap:wrap ;
+}
+
+.f-info-socials {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .f-info-socials i {
@@ -57,14 +65,97 @@ body {
 
 
 .f-info {
-    height: 8rem;
+    height: 28rem;
     background-color: #ebebeb;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 20px;
 }
 
+.lower-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 50px;
+}
 
+.line {
+    opacity: 0.1;
+    margin-bottom: 2px;
+}
+
+.add-pages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-top: 12px;
+}
+
+.add-pages li {
+    padding: 7px;
+    margin-right: 10px;
+}
+
+.add-pages li::marker {
+    font-size: 0.6em;
+}
+
+.f-info-brand {
+    margin: 15px;
+    margin-right: 25px;
+}
+
+.f-info-socials h6 {
+    margin: 2px 20px 4px 5px;
+}
+
+.globe-icon-div {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.globe-icon-div b {
+    margin-bottom: 2px;
+    margin-left: 5px;
+}
+
+.upper-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.support-div ,.hosting-div,.LeaseNest-div {
+    padding: 20px;
+    max-width:480px;
+    height:250px;
+    
+} 
+
+.support-div ul,.hosting-div ul,.LeaseNest-div ul {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.support-div ul li,.hosting-div ul li,.LeaseNest-div ul li{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.support-div ul a,.hosting-div ul a,.LeaseNest-div ul a{
+    color: black;
+    text-decoration: none;
+}
+
+.support-div h3,.hosting-div h3,.LeaseNest-div h3{
+    font-size: 15px;
+    margin-bottom: 16px;
+}
 /* Cards */
 
 .listing-card {
@@ -137,4 +228,3 @@ body {
     height: 400px;
     width: 45vw;
 }
-

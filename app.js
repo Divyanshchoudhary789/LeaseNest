@@ -19,6 +19,7 @@ const User = require("./models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const bookingRouter = require("./routes/booking.js");
 
 const port = process.env.PORT || 8080;
 const dbUrl = process.env.ATLASDB_URL;
@@ -124,6 +125,7 @@ app.use((req, res, next) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+app.use("/", bookingRouter);
 
 
 // Error Handling Middleware

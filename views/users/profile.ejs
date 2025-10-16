@@ -1,0 +1,344 @@
+<% layout("/layouts/boilerplate") %>
+    <% let firstLetter=currUser.username[0].toUpperCase(); let username=currUser.username; %>
+
+        <style>
+            .nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 15px;
+                border-bottom: 1.5px solid rgba(128, 128, 128, 0.395);
+            }
+
+            .left-nav {
+                display: flex;
+                align-items: center;
+            }
+
+            .right-nav {
+                display: flex;
+                align-items: center;
+            }
+
+            .right-nav>h4 {
+                margin-right: 20px;
+            }
+
+            .left-nav h4 {
+                margin-top: 8px;
+            }
+
+            .nav a {
+                color: black;
+                margin-right: 10px;
+            }
+
+            .profile-div {
+                border-right: 1px solid #808080b3;
+                height: 500px;
+                width: 305px;
+                display: flex;
+                justify-content: center;
+            }
+
+            .profile-card {
+                height: 180px;
+                width: 270px;
+                border: 1.5px solid rgba(128, 128, 128, 0.395);
+                margin-top: 20px;
+                border-radius: 24px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+            }
+
+            .icon {
+                width: 90px;
+                height: 90px;
+                border: 2px solid black;
+                background-color: black;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 20px;
+            }
+
+            .icon h2 {
+                color: white;
+            }
+
+            .side-page {
+                margin-left: 310px;
+                margin-top: -500px;
+                height: 100%;
+                padding: 30px;
+            }
+
+            .card {
+                width: 97%;
+                height: 320px;
+                padding: 15px;
+                border-radius: 15px;
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 30px;
+                border-color: rgba(128, 128, 128, 0.395);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            @media (min-width:993px) and (max-width:1400px) {
+                .card{
+                    height:500px;
+                }
+                
+            }
+
+            @media (max-width:992px) {
+               .side-page{
+                margin-left: 20px;
+                margin-top: 50px;
+               }
+               .card{
+                height:420px;
+               }
+                .profile-div{
+                    display: none;
+                }
+
+               
+            }
+
+            @media (max-width:1010px) {
+                .container{
+                    overflow-y: scroll;
+                }
+                .container::-webkit-scrollbar{
+                    display: none;
+                }
+                .review-container{
+                    position: relative ;
+                    width:40px;
+                    top:500px;
+                    left:-380px;
+                }
+            }
+
+            @media (max-width:411px) {
+                .container{
+                    margin-left: -8px;
+                    width:102%;
+                }
+                .container::-webkit-scrollbar{
+                    display: none;
+                }
+                
+            }
+
+            @media (max-width:768px) {
+                .card{
+                    display: block;
+                    width: 320px ;
+                    height:fit-content;
+                    margin-right: 20px;
+                }
+
+                .side-page{
+                    padding: 15px;
+                    margin-left: 10px;
+                    margin-top: 30px;
+                }
+                
+            }
+            .booking-card-image {
+
+                height: 230px;
+                width: 280px;
+                border-radius: 15px;
+                margin-bottom: 15px;
+                margin-right: 30px;
+            }
+
+            .bookings-btn {
+                cursor: pointer;
+                padding: 12px;
+                opacity: 0.7;
+            }
+
+            .reviews-btn {
+                cursor: pointer;
+                padding: 12px;
+                opacity: 0.7;
+            }
+
+            .active-btn {
+                background-color: #dedede;
+                border-radius: 10px;
+                opacity: 1;
+            }
+
+            .review-container {
+                margin-left: 310px;
+                
+                padding: 30px;
+                margin-top: -540px;
+                display: none;
+            }
+
+            .review-card {
+                border: 1.5px solid rgba(128, 128, 128, 0.395);
+                height: 350px;
+                width: 380px;
+                margin: 40px;
+                padding: 20px;
+                border-radius: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+
+
+
+        <div class="nav">
+            <div class="left-nav">
+                <a href="/listings"><i class="fa-solid fa-less-than"></i></a>
+                <h4>Profile</h4>
+            </div>
+            <div class="right-nav">
+                <h4 class="bookings-btn active-btn" id="bookings-btn">Bookings</h4>
+                <h4 class="reviews-btn" id="reviews-btn">Reviews</h4>
+            </div>
+        </div>
+
+        <div class="profile-div">
+            <div class="profile-card">
+                <div class="icon">
+                    <h2>
+                        <%= firstLetter %>
+                    </h2>
+                </div>
+                <h5>
+                    <b>
+                        <%= username %>
+                    </b>
+                </h5>
+            </div>
+        </div>
+
+
+        <div class="side-page " id="bookings-container">
+            <% for(booking of bookings){ %>
+                <div class="card">
+                    <div><img src="<%=booking.listing.image.url %>" class="booking-card-image"></div>
+                    <div class="card-body">
+                        <h5 class="card-text"><b>
+                                <%=booking.listing.title%>
+                            </b></h5>
+                        <h6>
+                            <%=booking.listing.description%>
+                        </h6>
+                        <h6><b>Owned by:</b>
+                            <%= booking.owner.username %>
+                        </h6>
+                        <h6>Price: <%= booking.listing.price%>&#8377; /month</h6>
+                        <br>
+                        <h6>Status: <b>
+                                <%= booking.status%>
+                            </b></h6>
+                        <h6>checkIn Date: <%= booking.checkIn.toLocaleString()%>
+                        </h6>
+                        <h6>checkOut Date: <%= booking.checkOut.toLocaleString()%>
+                        </h6>
+                        <br>
+                        <h5>Total Rent: <%= booking.totalRent%>&#8377;</h5>
+                    </div>
+                </div>
+                <% } %>
+
+        </div>
+
+        <div class="review-container" id="review-container">
+            <% for (review of reviews){ %>
+                <div class="review-card">
+                    <span>
+                        <h4><b>Comment:</b></h4>
+                        <h6>
+                            <%= review.comment %>
+                        </h6>
+                    </span>
+                    <h5><b>Rating: </b>
+                        <%=review.rating%> Stars
+                    </h5>
+                    <br>
+                    <h5><b>Posted At:</b>
+                        <%=review.createdAt.toLocaleString() %>
+                    </h5>
+                    <h5><b>by username:</b>
+                        <%=review.author.username %>
+                    </h5>
+                    <h5><b>Email:</b>
+                        <%=review.author.email %>
+                    </h5>
+                </div>
+
+                <% } %>
+        </div>
+
+       
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const bookingsContainer = document.getElementById("bookings-container");
+                const reviewsContainer = document.getElementById("review-container");
+                const bookingsBtn = document.getElementById("bookings-btn");
+                const reviewsBtn = document.getElementById("reviews-btn");
+
+                // Safety: ensure elements exist before adding listeners
+                if (!bookingsBtn || !reviewsBtn) {
+                    console.warn("Missing bookings/reviews buttons on profile page.");
+                    return;
+                }
+                if (!bookingsContainer || !reviewsContainer) {
+                    console.warn("Missing bookings/reviews containers on profile page.");
+                    return;
+                }
+
+                // Initial state: show bookings, hide reviews (explicit)
+                bookingsContainer.style.display = "block";
+                reviewsContainer.style.display = "none";
+                bookingsBtn.classList.add("active-btn");
+                reviewsBtn.classList.remove("active-btn");
+
+                function showReviews() {
+                    reviewsBtn.classList.add("active-btn");
+                    bookingsBtn.classList.remove("active-btn");
+                    bookingsContainer.style.display = "none";
+                    reviewsContainer.style.display = "block";
+                }
+
+                function showBookings() {
+                    bookingsBtn.classList.add("active-btn");
+                    reviewsBtn.classList.remove("active-btn");
+                    reviewsContainer.style.display = "none";
+                    bookingsContainer.style.display = "block";
+                }
+
+                reviewsBtn.addEventListener("click", showReviews);
+                bookingsBtn.addEventListener("click", showBookings);
+
+                // Optional: support keyboard activation (Enter / Space) on the headings
+                [reviewsBtn, bookingsBtn].forEach(el => {
+                    el.setAttribute("role", "button");
+                    el.setAttribute("tabindex", "0");
+                    el.addEventListener("keydown", (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            el.click();
+                        }
+                    });
+                });
+            });
+
+        </script>
