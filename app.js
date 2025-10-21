@@ -50,6 +50,12 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 
+// Google Console Search Verification Route - to show our website in google search.
+app.get("/google78020cdb18cdedd5.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "google78020cdb18cdedd5.html"));
+});
+
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
