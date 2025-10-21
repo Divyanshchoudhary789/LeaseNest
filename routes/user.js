@@ -12,13 +12,17 @@ const userController = require("../controllers/users.js");
 
 router.route("/profile")
     .get(userController.profile);
+    
 
-// footer Pages Routes -
-
-router.route("/help")
-    .get(userController.help);
+router.route("/contactInfo")
+    .get(userController.contactInfoPage);
 
 
+router.route("/terms")
+    .get(userController.termsPage);
+
+router.route("/privacy")
+    .get(userController.privacyPage);
 
 
 //signUp form + signup

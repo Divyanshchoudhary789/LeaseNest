@@ -18,6 +18,8 @@ This Application is for -
 - DATABASE --> MongoDB ATLAS 
 - Cloud Service --> Cloudinary (file storage)
 - Map API Service --> GeoApify
+- Razorpay API --> Payment Processing and Refunds
+- Google GEMINI API --> LeaseNest AI Assistant 
 - Dev tooling --> npm, nodemon, dotenv
 - Additional Tools --> Git, Github
 - Deployment & Hosting --> Render
@@ -45,6 +47,20 @@ Image uploads are offloaded to Cloudinary for reliable storage, optimized delive
 
 - Map & location integration (GeoApify)
 Listings can display geolocation data to help users find properties visually and filter by area.
+
+- Google Gemini API - Powered AI Chat Assistant  
+    - it provides personalized rental suggestions and analyzes user preferences and match with available properties.
+     
+    - it also provides customer support functionalities and resolves user queries.
+
+- Secure Razorpay Payment Gateway Integration
+    - Full Payment Processing with order verification.
+    - Automatic Refund Processing --> Instant Cancellation with refund handling.
+    - Payment Status Tracking --> Complete visibility into Payment lifecycle.
+
+- Profile Dashboard --> Dual-Panel system for users and hosts with filtering
+    - Real time Search and filters (Instant filtering of bookings, reviews, and listings).
+    - Multi field Property Search (Comprehensive search across all property details).
 
 - Secure authentication & sessions
 Session-based login (express-session / Passport.js patterns) with clear UI state for logged-in vs anonymous users.

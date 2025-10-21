@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
@@ -33,6 +33,10 @@
         <div class="container mb-5">
             <%- include("../includes/flash.ejs") %>
                 <%- body %>
+                <div id="lease-fab" class="lease-fab" role="button" aria-label="Open LeaseNest Assistant" tabindex="0">
+                    <span class="fab-icon"><i class="fa-solid fa-comments"></i></span>
+                    <span class="fab-badge"></span>
+                </div>
         </div>
 
 

@@ -17,6 +17,13 @@ router.route("/listings/:id/booking/new")
     .post(isLoggedIn, wrapAsync(bookingController.new));
 
 
+// cancel booking
+router.route("/profile/booking/:id/cancel")
+    .patch(wrapAsync(bookingController.cancel));
+
+// show user bookings
+// router.route("/profile/bookings")
+//     .get(isLoggedIn, wrapAsync(bookingController.showUserBookings));
 
 
 module.exports = router;

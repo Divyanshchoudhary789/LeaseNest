@@ -39,7 +39,40 @@ const bookingSchema = new Schema({
     totalRent: {
         type: Number,
         required: true
+    },
+
+    paymentStatus:{
+        type: String,
+        enum:["pending","paid", "failed","refunded"],
+        default: "pending"
+    },
+
+    razorpayOrderId:{
+        type: String
+    },
+
+    razorpayPaymentId:{
+        type: String
+    },
+
+    razorpaySignature:{
+        type: String
+    },
+
+    refundId:{
+        type: String
+    },
+
+    refundedAt:{
+        type: Date
+    },
+
+    bookedAt:{
+        type: Date,
+        default: Date.now
     }
+
+
 });
 
 

@@ -20,6 +20,8 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const bookingRouter = require("./routes/booking.js");
+const assistantRouter = require("./routes/assistant.js");
+const paymentRouter = require("./routes/payment.js");
 
 const port = process.env.PORT || 8080;
 const dbUrl = process.env.ATLASDB_URL;
@@ -42,6 +44,7 @@ async function main() {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
@@ -126,10 +129,19 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 app.use("/", bookingRouter);
+app.use("/", assistantRouter);
+app.use("/payment", paymentRouter);
 
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
+    // Check if request expects JSON (API routes)
+    if (req.headers.accept && req.headers.accept.includes('application/json')) {
+        return res.status(err.status || 500).json({
+            success: false,
+            message: err.message || "Something Went Wrong!"
+        });
+    }
     const { status = 500, message = "Something Went Wrong!" } = err;
     res.status(status).render("listings/error.ejs", { message });
 });

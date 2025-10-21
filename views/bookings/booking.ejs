@@ -1,192 +1,275 @@
 <%- layout("/layouts/boilerplate") %>
 
-    <% let monthPrice=listing.price ; let dayPrice=Math.round((monthPrice/30) * 100) / 100; %>
-        <% let Rent=days * dayPrice %>
-            <% let tax=(Rent * 10) / 100; let totalRent=Rent + tax; %>
 
-                <style>
-                    .main-div {
-                        display: flex;
-                        flex-direction: row;
-                        height: 100%;
-                        justify-content: space-between;
-                    }
+    <style>
+        .main-div {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            justify-content: space-between;
+        }
 
 
 
-                    .card {
-                        height: 485px;
-                        width: 390px;
-                        border-radius: 25px;
-                        padding: 20px;
-                        margin-top: 20px;
-                        margin-bottom: 30px;
-                    }
+        .card {
+            min-height: 485px;
+            max-width: 400px;
+            border-radius: 25px;
+            padding: 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
 
-                    .card-image img {
-                        height: 100%;
-                        width: 100px;
-                        border-radius: 15px;
-                        margin-right: 20px;
-                    }
+        .card-image img {
+            height: 100%;
+            width: 100px;
+            border-radius: 15px;
+            margin-right: 20px;
+        }
 
-                    .card-image {
-                        display: flex;
-                    }
+        .card-image {
+            display: flex;
+        }
 
-                    .price-list {
-                        width: 100%;
-                        display: flex;
-                        justify-content: space-between;
-                    }
-
-
-                    .upper-div {
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;
-                        align-items: center;
-                    }
-
-                    .upper-div>a {
-                        color: black;
-                        max-width: 35px;
-                        margin-left: -10px;
-                    }
-
-                    .upper-div>h3 {
-                        margin-top: 5px;
-                        width: 300px;
-                        display: inline-block;
-                    }
-
-                    .trip-info {
-                        width: 100%;
-                        height: 160px;
-                        margin-top: 50px;
-                        padding: 20px;
-                        margin-bottom: 60px;
-                    }
-
-                    @media (min-width:410px) and (max-width:991px) {
-                        .main-div {
-                            display: block;
-                        }
-
-                        .login-msg {
-                            margin-bottom: 50px;
-                            margin-left: 15px;
-                        }
-                    }
-
-                    @media (max-width:410px) {
-                        .main-div {
-                            display: block;
-                        }
-
-                        .login-msg {
-                            margin-bottom: 50px;
-                            margin-left: 15px;
-                        }
-
-                        .card {
-                            width: 90vw;
-                        }
-                    }
-                </style>
+        .price-list {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
 
 
-                <div class="row mt-3 upper-div">
-                    <a href="/listings/<%= listing._id %>"><i class="fa-solid fa-less-than"></i></a>
-                    <h3>Confirm and pay</h3>
+        .upper-div {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+
+        .upper-div>a {
+            color: black;
+            max-width: 35px;
+            margin-left: -10px;
+        }
+
+        .upper-div>h3 {
+            margin-top: 5px;
+            width: 300px;
+            display: inline-block;
+        }
+
+        .trip-info {
+            width: 100%;
+            height: 160px;
+            margin-top: 50px;
+            padding: 20px;
+            margin-bottom: 60px;
+        }
+
+        @media (min-width:410px) and (max-width:991px) {
+            .main-div {
+                display: block;
+            }
+
+            .login-msg {
+                margin-bottom: 50px;
+                margin-left: 15px;
+            }
+        }
+
+        @media (max-width:410px) {
+            .main-div {
+                display: block;
+            }
+
+            .login-msg {
+                margin-bottom: 50px;
+                margin-left: 15px;
+            }
+
+            .card {
+                width: 90vw;
+            }
+        }
+    </style>
+
+
+    <div class="row mt-3 upper-div">
+        <a href="/listings/<%= listing._id %>"><i class="fa-solid fa-less-than"></i></a>
+        <h3>Confirm and pay</h3>
+    </div>
+
+    <div class="main-div">
+
+        <div class="card">
+            <div class="card-image">
+                <img src="<%= listing.image.url%>" alt="image" />
+                <div>
+                    <h4>
+                        <%= listing.title %>
+                    </h4>
+                    <h6>Owned by: <%= listing.owner.username %>
+                    </h6>
+                </div>
+            </div>
+            <div class="payment-info">
+                <hr>
+                <h5>Price details</h5>
+                <h6 style="margin-bottom: 15px;">Listed Price: <%=listing.price%>&#8377; /month </h6>
+                <h4>Your total-</h4>
+                <div class="price-list">
+                    <div>
+                        <h5>per day price- </h5>
+                        <br><br>
+                        <h5>
+                            <%=days%> x <%= dayPrice%>
+                        </h5>
+                        <h6>Taxes:</h6>
+                        <hr>
+                        <h3>Total:</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <h5>
+                            <%= listing.price%>&#8377; / 30
+                        </h5>
+                        <h5>&nbsp;&nbsp;= <%= dayPrice %> &#8377;</h5>
+                        <br>
+                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<b>
+                                <%= Rent %>&#8377;
+                            </b></h6>
+                        <h6>&nbsp;&nbsp;&nbsp;&nbsp;<b>
+                                <%= tax %> &#8377;
+                            </b></h6>
+
+                        <hr>
+                        <h3>
+                            <%= totalRent %>&#8377;
+                        </h3>
+                    </div>
                 </div>
 
-                <div class="main-div">
-
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="<%= listing.image.url%>" alt="image" />
-                            <div>
-                                <h4>
-                                    <%= listing.title %>
-                                </h4>
-                                <h6>Owned by: <%= listing.owner.username %>
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="payment-info">
-                            <hr>
-                            <h5>Price details</h5>
-                            <h6 style="margin-bottom: 15px;">Listed Price: <%=listing.price%>&#8377; /month </h6>
-                            <h4>Your total-</h4>
-                            <div class="price-list">
-                                <div>
-                                    <h5>per day price- </h5>
-                                    <br><br>
-                                    <h5>
-                                        <%=days%> x <%= dayPrice%>
-                                    </h5>
-                                    <h6>Taxes:</h6>
-                                    <hr>
-                                    <h3>Total:</h3>
-                                </div>
-                                <div style="text-align: center;">
-                                    <h5>
-                                        <%= listing.price%>&#8377; / 30
-                                    </h5>
-                                    <h5>&nbsp;&nbsp;= <%= dayPrice %> &#8377;</h5>
-                                    <br>
-                                    <h6>&nbsp;&nbsp;&nbsp;&nbsp;<b>
-                                            <%= Rent %>&#8377;
-                                        </b></h6>
-                                    <h6>&nbsp;&nbsp;&nbsp;&nbsp;<b>
-                                            <%= tax %> &#8377;
-                                        </b></h6>
-
-                                    <hr>
-                                    <h3>
-                                        <%= totalRent %>&#8377;
-                                    </h3>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+            </div>
+        </div>
 
 
 
-                    <div class="info-div">
-                        <div class="trip-info">
-                            <h3>Your trip</h3><br>
-                            <h5>Dates</h5>
-                            <h5>
-                                <%=daterange %>
-                            </h5><br>
-                            <hr class="line">
-                        </div>
+        <div class="info-div">
+            <div class="trip-info">
+                <h3>Your trip</h3><br>
+                <h5>Dates</h5>
+                <h5>
+                    <%=daterange %>
+                </h5><br>
+                <hr class="line">
+            </div>
 
-                        <% if(!currUser) { %>
-                            <div class="login-msg">
-                                <h2>Log in or sign up to book</h2><br>
-                                <a href="/login" class="btn btn-dark"
-                                    style="color: white; text-decoration:none; background-color: #fe424d; border:none">Login</a>
-                                <a href="/signup" class="btn btn-dark"
-                                    style="color: white; text-decoration:none; background-color: #fe424d; border:none; margin-left: 20px;">signup</a>
-                            </div>
-                            <% } %>
-
-                                <% if(currUser) { %>
-                                    <div class="booking-div">
-                                        <form method="post" action="/listings/<%= listing._id%>/booking/new">
-                                            <input type="hidden" name="checkIn" value="<%=startDate%>" />
-                                            <input type="hidden" name="checkOut" value="<%=endDate%>" />
-                                            <input type="hidden" name="totalRent" value="<%= totalRent %>" />
-                                            <button class="btn btn-dark mb-5"
-                                                style="background-color: #fe424d; border: none; margin-left: 30px;">Book</button>
-                                        </form>
-                                    </div>
-                                    <% } %>
-                    </div>
-
-
+            <% if(!currUser) { %>
+                <div class="login-msg">
+                    <h2>Log in or sign up to book</h2><br>
+                    <a href="/login" class="btn btn-dark"
+                        style="color: white; text-decoration:none; background-color: #fe424d; border:none">Login</a>
+                    <a href="/signup" class="btn btn-dark"
+                        style="color: white; text-decoration:none; background-color: #fe424d; border:none; margin-left: 20px;">signup</a>
                 </div>
+                <% } %>
+
+                    <% if(currUser && !currUser._id.equals(listing.owner._id)){ %>
+                        <div class="booking-div">
+                            <form method="post" id="payment-form">
+                                <input type="hidden" name="checkIn" value="<%=startDate%>" />
+                                <input type="hidden" name="checkOut" value="<%=endDate%>" />
+                                <button class="btn btn-dark mb-5"
+                                    style="background-color: #fe424d; border: none; margin-left: 30px;">Book</button>
+                            </form>
+                        </div>
+                        <% } %>
+        </div>
+
+
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const form = document.getElementById("payment-form");
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+
+                const formData = new FormData(form);
+
+                const data = {
+                    listingId: "<%=listing._id %>",
+                    userId: "<%=currUser._id %>",
+                    startDate: formData.get("checkIn"),
+                    endDate: formData.get("checkOut"),
+                    totalAmount: <%= totalRent %>
+                };
+
+                const orderResponse = await fetch("/payment/create-order", {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+    
+                const orderData = await orderResponse.json();
+    
+                if (!orderData.success) {
+                    alert("Failed to create order: " + orderData.message);
+                    return;
+                }
+    
+                const options = {
+                    key: "<%=process.env.RAZORPAY_KEY_ID %>",
+                    amount: orderData.order.amount,
+                    currency: orderData.order.currency,
+                    name: "LeaseNest",
+                    description:"Property Booking Payment",
+                    image:"/assets/icon.png",
+                    order_id: orderData.order.id,
+                handler: async function (response) {
+                    const verifyResponse = await fetch("/payment/verify-payment", {
+                        method: "post",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            razorpayOrderId: response.razorpay_order_id,
+                            razorpayPaymentId: response.razorpay_payment_id,
+                            razorpaySignature: response.razorpay_signature
+                        })
+                    });
+
+                    const verifyResult = await verifyResponse.json();
+                    if (verifyResult.success) {
+                        // Set flash message via a redirect to a success page
+                        window.location.href = "/payment/success";
+                    } else {
+                        alert("Payment verification failed. Please Contact Support.");
+                    }
+                },
+
+                prefill: {
+                    name: "<%=currUser.username %>",
+                    email: "<%=currUser.email %>"
+                },
+                theme: { color: "#fe424d" }
+
+            };
+
+            const razorpay = new Razorpay(options);
+            razorpay.on("payment.failed", async function (response) {
+                alert("Payment failed: " + response.error.description);
+                // Update backend on failure
+                await fetch("/payment/payment-failed", {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ bookingId: orderData.bookingId })
+                });
+            });
+
+            razorpay.open();
+
+        });
+
+        });
+
+    </script>

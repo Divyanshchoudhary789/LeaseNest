@@ -134,9 +134,26 @@ module.exports.destroyListing = async (req, res) => {
 
 module.exports.renderSearchResults = async (req, res) => {
     //console.log(req.query);
-    let SearchingLocation = req.query.location;
+    let SearchingLocation = req.query.location?.trim();
+
+    // Input validation
+    if (!SearchingLocation || SearchingLocation.length < 2) {
+        return res.render("listings/search.ejs", { allListings: [] });
+    }
+
     //console.log(SearchingLocation);
-    let allListings = await Listing.find({ location: { $regex: SearchingLocation, $options: "i" } });
+
+    // Case-insensitive regex for multi-field search
+    let searchRegex = new RegExp(SearchingLocation, "i");
+
+    let allListings = await Listing.find({
+        $or: [
+            { location: { $regex: searchRegex } },
+            { title: { $regex: searchRegex } },
+            { description: { $regex: searchRegex } }
+        ]
+    });
+
     //console.log(listings);
     res.render("listings/search.ejs", { allListings });
 }

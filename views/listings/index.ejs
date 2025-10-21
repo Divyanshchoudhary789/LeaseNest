@@ -122,7 +122,8 @@
         }
 
         .clickStyle{
-            background-color: grey;
+            border-bottom: 2px solid black;
+            opacity: 1;
         }
     </style>
 
@@ -131,9 +132,19 @@
         <div id="container">
             <div class="slider-btn-left" id="prevBtn"><i class="fa-solid fa-less-than"></i></div>
             <div class="filters" id="filters">
+                <div class="filter clickStyle" category="all">
+                    <div><i class="fa-solid fa-th-large"></i></div>
+                    <p>All</p>
+                </div>
+
                 <div class="filter" category="Trending">
                     <div><i class="fa-solid fa-fire"></i></div>
                     <p>Trending</p>
+                </div>
+
+                <div class="filter" category="PG">
+                    <div><i class="fa-solid fa-building"></i></div>
+                    <p>PG</p>
                 </div>
 
                 <div class="filter" category="Rooms">
@@ -208,7 +219,7 @@
                                     <%= listing.title %>
                                 </b><br />
                                 &#8377; <%= listing.price.toLocaleString("en-IN") %> / month
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="tax-info">+15% GST</i>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="tax-info">+10% GST</i>
 
                             </p>
                         </div>
@@ -261,18 +272,31 @@
         filterArray.forEach((filter) => {
             filter.addEventListener("click", function () {
                 const selectedCategory = this.getAttribute("category");
-                let filteredListings = allListings.filter((listing) => {
-                    return listing.category == selectedCategory;
-                });
+                let filteredListings;
 
-            
+                if (selectedCategory === "all") {
+                    filteredListings = allListings;
+                } else {
+                    filteredListings = allListings.filter((listing) => {
+                        return listing.category == selectedCategory;
+                    });
+                }
+
+                // Remove active class from all filters
+                filterArray.forEach(f => f.classList.remove("clickStyle"));
+                // Add active class to clicked filter
+                this.classList.add("clickStyle");
+
                 if (filteredListings.length == 0) {
+                    const container = document.querySelector('.row');
                     container.innerHTML = `<div class="message">
                         No listings found.<br>
-                        <b>Coming Soon!<b>
+                        <b>Coming Soon!</b><br><br>
+                        <a href="/listings" class="btn btn-dark">Explore All Listings</a>
                         </div>`;
+                } else {
+                    renderListings(filteredListings);
                 }
-                renderListings(filteredListings);
             });
         });
 

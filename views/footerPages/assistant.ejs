@@ -1,0 +1,347 @@
+<% layout("/layouts/boilerplateFooterPages") %>
+
+    <style>
+        .main-div {
+            border-top: 1.5px solid #ebeaea;
+            min-height: 700px;
+            max-width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sidebar {
+            min-width: 350px;
+            min-height: 700px;
+            padding: 8px;
+        }
+
+        .message-section {
+            border: 1.5px solid #ebeaea;
+            min-height: 700px;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .sidebar-top {
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #arrow-left {
+            margin-right: 5px;
+            display: none;
+        }
+
+        .sidebar-body {
+            min-height: 90%;
+            margin: 20px 0px;
+            overflow-y: scroll;
+        }
+
+        .message-top {
+            max-height: 47px;
+            border-bottom: 1.5px solid #ebeaea;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+        }
+
+        .logo-icon img {
+            width: 40px;
+            height: 40px;
+            margin: 0px 5px;
+        }
+
+        .toggle-icon {
+            font-size: 25px;
+            display: none;
+        }
+
+        .message-div {
+            margin-top: 15px;
+            min-height: 90%;
+            padding: 10px;
+        }
+
+        @media (max-width:992px) {
+            .toggle-icon {
+                display: block;
+            }
+
+            .sidebar {
+                position: absolute;
+                left: -370px;
+                border: 1px solid #ebeaea;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+            }
+
+            #arrow-left {
+                display: block;
+            }
+
+            .move-down-icon{
+                position: relative;
+                right: 50%;
+            }
+        }
+
+        #sidebar.showSidebar {
+            left: 0px;
+            /*  top: 163px; */
+            min-height: 590px;
+            z-index: 100;
+            background-color: white;
+            transition: left 0.3s linear;
+        }
+
+        .message {
+            min-height: 460px;
+            margin-bottom: 10px;
+        }
+
+        .input-field {
+            border: 1.5px solid #DDDDDD;
+            min-height: 125px;
+            padding: 10px;
+            border-radius: 15px;
+            box-sizing: border-box;
+        }
+
+        .input-field input {
+            width: 100%;
+            height: 50px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 15px;
+            border-color: #DDDDDD;
+        }
+
+        .up-icon {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .up-icon button {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            background-color: #fe424fcf;
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            scroll-behavior: smooth;
+            max-height: 500px;
+        }
+
+        .chat-message {
+            margin: 5px 0;
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 75%;
+            word-wrap: break-word;
+            animation: fadeInChat 0.5s cubic-bezier(0.77,0,0.18,1) both;
+        }
+
+        @keyframes fadeInChat {
+            from{
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to{
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .chat-message:hover {
+            opacity: 0.9;
+        }
+
+        .user-message {
+            background-color: black;
+            color: white;
+            align-self: flex-end;
+            border-radius: 15px 15px 0px 15px;
+        }
+
+        .assistant-message {
+            background-color: #ececec;
+            color: #333;
+            align-self: flex-start;
+            border-radius: 15px 15px 15px 0px;
+        }
+
+        @media (max-width: 576px) {
+            .chat-message {
+                max-width: 95%;
+                font-size: 14px;
+            }
+        }
+
+        .timestamp {
+            display: block;
+            font-size: 10px;
+            margin-top: 5px;
+            color: gray;
+        }
+
+        .user-timestamp {
+            text-align: right;
+        }
+
+        .assistant-timestamp {
+            text-align: left;
+        }
+
+        .new-chat-btn {
+            background: linear-gradient(135deg, #fe424d, #ff737a);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .new-chat-btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #ff5b64, #fe424d);
+        }
+
+        .chat-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chat-list li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .chat-list li:hover {
+            background: #f0f0f0;
+        }
+
+        .text{
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            font-family: "Plus Jakarta Sans", "sans-serif";
+        }
+
+        .move-down-icon{
+            height:30px;
+            width:30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.87);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            right:45%;
+            bottom: 120px;
+            border: 1.5px solid #DDDDDD;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .move-down-icon i {
+            font-size: 12px;
+        }
+
+        
+    </style>
+
+    <div class="main-div mt-4 mb-5">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <h4><b>Messages</b></h4>
+                <form action="/assistant/support/newChat" method="get">
+                    <button type="submit" class="new-chat-btn">+ New Chat</button>
+                </form>
+                <i class="fa-solid fa-arrow-left" id="arrow-left"></i>
+            </div>
+            <div class="sidebar-body">
+                <ul class="chat-list">
+                    <% const chats = (typeof userChats !== 'undefined' && userChats) ? userChats : []; %>
+                    <% if (chats.length > 0) { %>
+                        <% chats.forEach(chat => { %>
+                            <li>
+                                <a href="/assistant?chat=<%= chat._id %>" style="text-decoration:none;color:inherit;">
+                                    <%= chat.title || ('Chat — ' + (chat.createdAt ? new Date(chat.createdAt).toLocaleDateString() : '')) %>
+                                </a>
+                                <button class="delete-chat-btn" data-id="<%= chat._id %>" title="Delete chat" style="float:right;border:none;background:transparent;color:#fe424ff2;cursor:pointer;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </li>
+                        <% }) %>
+                    <% } else { %>
+                        <li>No previous chats</li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+        <div class="message-section">
+            <div class="message-top">
+                <div class="toggle-icon" id="toggle-icon" role="button"><i class="fa-solid fa-bars"></i></div>
+                <div class="logo-icon"><img src="/assets/icon.png"></div>
+                <h4><b>LeaseNest Support</b></h4>
+            </div>
+            <div class="message-div">
+                <div class="message">
+                    <div class="chat-container" id="chat-container">
+                        <% if (typeof session !=="undefined" && session && session.messages.length> 0) { %>
+                            <% session.messages.forEach(msg=> { %>
+                                <div
+                                    class="chat-message <%= msg.sender === 'user' ? 'user-message' : 'assistant-message' %>">
+                                    <pre class="text"><%=msg.text %></pre>
+                                </div>
+                                <small
+                                    class="timestamp <%= msg.sender === 'user' ? 'user-timestamp' : 'assistant-timestamp' %>">
+                                    <%= new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit' ,
+                                        minute: '2-digit' }) %>
+                                </small>
+                                <% }) %>
+                                    <% } else { const firstName = (typeof currUser !== 'undefined' && currUser && currUser.username) ? currUser.username.split(/[_ ]/)[0] : 'Guest';%>
+                                        <div class="chat-message assistant-message">
+                                            Hello <%= firstName %>, How can I help you today?...
+                                        </div>
+
+                                    <% } %>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <form method="post" id="chat-form" action="/assistant/support">
+                        <input type="hidden" name="chatId" value="<%= (typeof session !== 'undefined' && session) ? session._id : (typeof sessionChatId !== 'undefined' && sessionChatId) ? sessionChatId : '' %>">
+                        <input placeholder="Write a message..." type="text" name="input" />
+                        <div class="up-icon">
+                            <div class="move-down-icon" id="move-down-icon"><i class="fa-solid fa-arrow-down"></i></div>
+                            <button type="submit">
+                                <i class="fa-solid fa-arrow-up" style="font-size: 12px;"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/js/assistant.js"></script>

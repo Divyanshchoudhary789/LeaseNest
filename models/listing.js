@@ -34,7 +34,7 @@ const listingSchema = new Schema({
 
     category: {
         type: String,
-        enum: ["Mountains", "Forests", "Farms", "Domes", "Arctic", "Rooms", "Iconic Cities", "Camping", "Boats", "Trending", "Amazing Pools"],
+        enum: ["Mountains", "Forests", "Farms", "Domes", "Arctic", "Rooms", "Iconic Cities", "Camping", "Boats", "Trending", "Amazing Pools", "PG"],
     },
 
     geometry: {
@@ -61,6 +61,11 @@ const listingSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+
+    postedAt: {
+        type: Date,
+        default: Date.now
     },
 
 });

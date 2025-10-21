@@ -54,7 +54,7 @@
 
 
             <div class="col-8 offset-2 mb-5 ">
-                <% if(currUser) { %>
+                <% if(currUser && currUser._id.toString() !== listing.owner._id.toString()) { %>
                     <hr id="line" />
                     <h4>Leave a Review:</h4>
                     <br>
