@@ -181,95 +181,97 @@
                                     style="background-color: #fe424d; border: none; margin-left: 30px;">Book</button>
                             </form>
                         </div>
-                        <% } %>
+
+                        
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                    
+                                const form = document.getElementById("payment-form");
+                                form.addEventListener("submit", async function (event) {
+                                    event.preventDefault();
+                    
+                    
+                                    const formData = new FormData(form);
+                    
+                                    const data = {
+                                        listingId: "<%=listing._id %>",
+                                        userId: "<%=currUser._id %>",
+                                        startDate: formData.get("checkIn"),
+                                        endDate: formData.get("checkOut"),
+                                        totalAmount: <%= totalRent %>
+                                    };
+                    
+                                    const orderResponse = await fetch("/payment/create-order", {
+                                        method: "post",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify(data)
+                                    });
+                        
+                                    const orderData = await orderResponse.json();
+                        
+                                    if (!orderData.success) {
+                                        alert("Failed to create order: " + orderData.message);
+                                        return;
+                                    }
+                        
+                                    const options = {
+                                        key: "<%=process.env.RAZORPAY_KEY_ID %>",
+                                        amount: orderData.order.amount,
+                                        currency: orderData.order.currency,
+                                        name: "LeaseNest",
+                                        description:"Property Booking Payment",
+                                        image:"/assets/icon.png",
+                                        order_id: orderData.order.id,
+                                    handler: async function (response) {
+                                        const verifyResponse = await fetch("/payment/verify-payment", {
+                                            method: "post",
+                                            headers: { "Content-Type": "application/json" },
+                                            body: JSON.stringify({
+                                                razorpayOrderId: response.razorpay_order_id,
+                                                razorpayPaymentId: response.razorpay_payment_id,
+                                                razorpaySignature: response.razorpay_signature
+                                            })
+                                        });
+                    
+                                        const verifyResult = await verifyResponse.json();
+                                        if (verifyResult.success) {
+                                            // Set flash message via a redirect to a success page
+                                            window.location.href = "/payment/success";
+                                        } else {
+                                            alert("Payment verification failed. Please Contact Support.");
+                                        }
+                                    },
+                    
+                                    prefill: {
+                                        name: "<%=currUser.username %>",
+                                        email: "<%=currUser.email %>"
+                                    },
+                                    theme: { color: "#fe424d" }
+                    
+                                };
+                    
+                                const razorpay = new Razorpay(options);
+                                razorpay.on("payment.failed", async function (response) {
+                                    alert("Payment failed: " + response.error.description);
+                                    // Update backend on failure
+                                    await fetch("/payment/payment-failed", {
+                                        method: "post",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({ bookingId: orderData.bookingId })
+                                    });
+                                });
+                    
+                                razorpay.open();
+                    
+                            });
+                    
+                            });
+                    
+                        </script>
+
+                 <% } %>
         </div>
 
 
     </div>
 
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const form = document.getElementById("payment-form");
-            form.addEventListener("submit", async function (event) {
-                event.preventDefault();
-
-
-                const formData = new FormData(form);
-
-                const data = {
-                    listingId: "<%=listing._id %>",
-                    userId: "<%=currUser._id %>",
-                    startDate: formData.get("checkIn"),
-                    endDate: formData.get("checkOut"),
-                    totalAmount: <%= totalRent %>
-                };
-
-                const orderResponse = await fetch("/payment/create-order", {
-                    method: "post",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                });
-    
-                const orderData = await orderResponse.json();
-    
-                if (!orderData.success) {
-                    alert("Failed to create order: " + orderData.message);
-                    return;
-                }
-    
-                const options = {
-                    key: "<%=process.env.RAZORPAY_KEY_ID %>",
-                    amount: orderData.order.amount,
-                    currency: orderData.order.currency,
-                    name: "LeaseNest",
-                    description:"Property Booking Payment",
-                    image:"/assets/icon.png",
-                    order_id: orderData.order.id,
-                handler: async function (response) {
-                    const verifyResponse = await fetch("/payment/verify-payment", {
-                        method: "post",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            razorpayOrderId: response.razorpay_order_id,
-                            razorpayPaymentId: response.razorpay_payment_id,
-                            razorpaySignature: response.razorpay_signature
-                        })
-                    });
-
-                    const verifyResult = await verifyResponse.json();
-                    if (verifyResult.success) {
-                        // Set flash message via a redirect to a success page
-                        window.location.href = "/payment/success";
-                    } else {
-                        alert("Payment verification failed. Please Contact Support.");
-                    }
-                },
-
-                prefill: {
-                    name: "<%=currUser.username %>",
-                    email: "<%=currUser.email %>"
-                },
-                theme: { color: "#fe424d" }
-
-            };
-
-            const razorpay = new Razorpay(options);
-            razorpay.on("payment.failed", async function (response) {
-                alert("Payment failed: " + response.error.description);
-                // Update backend on failure
-                await fetch("/payment/payment-failed", {
-                    method: "post",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ bookingId: orderData.bookingId })
-                });
-            });
-
-            razorpay.open();
-
-        });
-
-        });
-
-    </script>
