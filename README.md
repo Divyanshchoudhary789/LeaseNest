@@ -1,11 +1,13 @@
 Rental Listings and Management-based Web Application Platform.         
 
+
+
 # 🌐 Live Deployment
 
 ### Live (Render)
-leasenest.onrender.com
+https://leasenest.onrender.com/
 
----
+-----------------------------------------------
 
 
 
@@ -83,3 +85,18 @@ Reusable EJS partials (navbar, footer, profile card) make maintenance and featur
 Static files served from public/ (images, client JS, CSS) for simple deployment and caching strategies.
 
 - Deployed on Render for easy hosting.
+
+------------------------------------------------
+
+# 👨‍💻 Author
+
+**Divyansh Choudhary**
+
+Full Stack Developer | MERN STACK Developer
+
+GitHub:  
+https://github.com/Divyanshchoudhary789
+
+LinkedIn:  
+https://www.linkedin.com/in/divyansh--choudhary/
+
